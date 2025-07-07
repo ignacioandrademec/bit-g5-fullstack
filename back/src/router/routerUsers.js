@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import controllerUsers, { forgotPassword } from '../controllers/controllerUsers.js'; // siempre colocarle el .js ya que el lo trae sin la extensión.
+import controllerUsers, { forgotPassword } from '../controllers/controllerUsers.js';
 
 const routerUsers = Router();
 
@@ -11,3 +11,4 @@ routerUsers.delete('/:id', controllerUsers.deleteUser);
 routerUsers.post('/forgot-password', forgotPassword);
 
 export default routerUsers;
+

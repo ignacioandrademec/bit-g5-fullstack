@@ -3,7 +3,7 @@ import modelUsers from "../models/modelUsers.js"// para poder controlar el schem
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 
-const ControllerUsers = {
+const controllerUsers = {
     createUser: async(sol , res)=>{
         try{
             const {name, email, password} = sol.body;
@@ -115,12 +115,12 @@ const ControllerUsers = {
     }
 };
 
-// funcion para crear una contrasena aleatoria
+
 function generarContrasenaAleatoria(){
     return crypto.randomBytes(6).toString('hex');
 }
 
-export const forgotPasword = async (sol , res)=>{
+export const forgotPassword = async (sol , res)=>{
     try{
         const { email }= sol.body
         const user = await modelUsers.findOne({email});
@@ -166,4 +166,4 @@ export const forgotPasword = async (sol , res)=>{
 
 
 
-export default ControllerUsers;
+export default controllerUsers;

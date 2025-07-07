@@ -1,4 +1,5 @@
 import multer from 'multer';
+import modelProducts from '../models/modelProducts.js';
 
 
 const controllerProducts = {
@@ -21,7 +22,7 @@ const controllerProducts = {
 
                 }else {
                     const newProducts = new modelProducts({
-                        modelo: sol.body.modelo,
+                        tipo: sol.body.tipo,
                         marca: sol.body.marca,
                         precio: sol.body.precio,
                         color: sol.body.color,
