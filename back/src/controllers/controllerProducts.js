@@ -21,7 +21,7 @@ const controllerProducts = {
                     marca:sol.body.marca,
                     precio:sol.body.precio,
                     color:sol.body.color,
-                    imagen:sol.file.imagen,
+                    imagen:sol.file.filename,
                 });
 
                 const saveProduct = await newProduct.save();
@@ -167,6 +167,7 @@ const controllerProducts = {
                     {new:true}
                 );
 
+                
                 res.json({
                     result: 'fine',
                     message: 'ProductUpdate',
@@ -204,6 +205,7 @@ const controllerProducts = {
     //         });
     //     }
     // },
+
 
     deleteProduct : async (sol, res)=>{
         try {

@@ -20,3 +20,4 @@ servidor.get('/',(sol, res)=>{
 });
 
 export default servidor;
+
