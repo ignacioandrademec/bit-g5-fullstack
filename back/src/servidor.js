@@ -13,7 +13,7 @@ servidor.use(express.json());
 servidor.use('/users', routerUsers);
 servidor.use('/products', routerProducts);
 servidor.use('/imagenes', express.static(path.resolve('imagenes')));
-servidor.use('/inicio-sesion', routerLogin);
+servidor.use('/inicio-sesion',routerLogin);
 
 servidor.get('/',(sol, res)=>{
     res.status(404).send("No encontrado");

@@ -133,28 +133,22 @@ export const forgotPassword = async (sol , res)=>{
         user.password = hashedPassword;
         await user.save();
 
-        // configuracion del servicio de correo 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth:{
-                user: process.env.EMAIL_NODE,
-                pass: process.env.PASS_NODE
+                user: 'bitgrupo255@gmail.com',
+                pass: 'Grupobit2000*'
             },
         });
 
-        // contenido del correo
         const mailOptions = {
-            from: 'desarrollobitpruebas@gmail.com',
+            from: 'bitgrupo255@gmail.com',
             to: email,
-            subject: 'Recuperaciond e contraseña',
+            subject: 'Recuperación de contraseña',
             text: `Hola ${user.name}, \n\Tu nueva contraseña es: ${nuevaPassword}\n\ Recuerda actualizar tu contraseña en tu perfil por seguridad. \n\ Saludos desde el area de soporte.`
         };
 
-        // envio de correo
-
         await transporter.sendMail(mailOptions);
-
-        // Responder al usuario
 
         res.status(200).json({message: 'Se ha enviado una nueva contraseña al correo registrado.'});
 
@@ -164,6 +158,5 @@ export const forgotPassword = async (sol , res)=>{
     }
 }
 
-
-
 export default controllerUsers;
+

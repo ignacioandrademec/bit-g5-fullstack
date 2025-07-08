@@ -1,127 +1,259 @@
-import multer from 'multer';
+import { uploadSingleImage} from '../middlewares/upload.js';
+import fs from 'fs';
+import path from 'path';
 import modelProducts from '../models/modelProducts.js';
 
 
+
 const controllerProducts = {
-    createProduct: async (sol , res)=>{
-        try{
-            const almacenar = multer.diskStorage({
-                destination: 'imagenes',
-                filename:(req , file, cb)=>{
-                    cb(null, file.originalname);
-                },
-            });
-            const carga = multer({ storage:almacenar}).single('imagen');
-            carga(sol , res , async(error)=>{
+    createProduct: async (sol, res)=>{
+        try {
+            uploadSingleImage(sol, res, async(error)=>{
                 if(error){
                     res.json({
                         result: 'mistake',
                         message: 'An error occurred while uploading the image',
-                        data: null,
+                        data: error,
                     });
-
-                }else {
-                    const newProducts = new modelProducts({
-                        tipo: sol.body.tipo,
-                        marca: sol.body.marca,
-                        precio: sol.body.precio,
-                        color: sol.body.color,
-                        imagen: sol.file.filename
-                    });
-                    const productsCreate = await newProducts.save();
-                    if(productsCreate._id){
-                        res.json({
-                            result: 'fine',
-                            message: 'Product create',
-                            data: productsCreate._id,
-                        });
-                    }
                 }
-            });
-        }catch(error){
+                const newProduct = new modelProducts({
+                    tipo:sol.body.tipo,
+                    marca:sol.body.marca,
+                    precio:sol.body.precio,
+                    color:sol.body.color,
+                    imagen:sol.file.imagen,
+                });
+
+                const saveProduct = await newProduct.save();
+                res.json({
+                    result: 'fine',
+                    message: 'Product create',
+                    data: saveProduct._id,
+                })
+            })
+            
+        } catch (error) {
             res.json({
                 result: 'mistake',
                 message: 'An error occurred creating the product',
+                data: error,
+            })
+        }
+    },
+
+
+
+    // createProduct: async (sol , res)=>{
+    //     try{
+    //         const almacenar = multer.diskStorage({
+    //             destination: 'imagenes',
+    //             filename:(req , file, cb)=>{
+    //                 cb(null, file.originalname);
+    //             },
+    //         });
+    //         const carga = multer({ storage:almacenar}).single('imagen');
+    //         carga(sol , res , async(error)=>{
+    //             if(error){
+    //                 res.json({
+    //                     result: 'mistake',
+    //                     message: 'An error occurred while uploading the image',
+    //                     data: null,
+    //                 });
+
+    //             }else {
+    //                 const newProducts = new modelProducts({
+    //                     tipo: sol.body.tipo,
+    //                     marca: sol.body.marca,
+    //                     precio: sol.body.precio,
+    //                     color: sol.body.color,
+    //                     imagen: sol.file.filename
+    //                 });
+    //                 const productsCreate = await newProducts.save();
+    //                 if(productsCreate._id){
+    //                     res.json({
+    //                         result: 'fine',
+    //                         message: 'Product create',
+    //                         data: productsCreate._id,
+    //                     });
+    //                 }
+    //             }
+    //         });
+    //     }catch(error){
+    //         res.json({
+    //             result: 'mistake',
+    //             message: 'An error occurred creating the product',
+    //             data: error,
+    //         });
+    //     }
+    // },
+
+    readProduct : async (sol , res)=>{
+        try{
+            const productFound = await modelProducts.findById(sol.params.id);
+            if(productFound._id){
+                res.json({
+                    result:'fine',
+                    message: 'Product read',
+                    data: productFound,
+                });
+            }
+
+        }catch(error){
+            res.json({
+                result: 'mistake',
+                message: 'An error occurred reading the product',
                 data: error,
             });
         }
     },
 
-readProduct : async (sol , res)=>{
-    try{
-        const productFound = await modelProducts.findById(sol.params.id);
-        if(productFound._id){
+    readProducts : async(sol , res)=>{
+        try{
+            const allProductsFound = await modelProducts.find();
             res.json({
-                result:'fine',
-                message: 'Product read',
-                data: productFound,
+                result: 'fine',
+                message: ' Products found',
+                data: allProductsFound
+            });
+        }catch(error){
+            res.json({
+                result: ' mistake',
+                message: 'An error occurred reading all products',
+                data: error,
+            });
+        }   
+    },
+    
+    updateProduct: async(sol, res)=>{
+        try {
+            uploadSingleImage(sol,res,async(error)=>{
+                if (error) {
+                    res.json({
+                        result: 'Mistake',
+                        message: 'Error uploading image during update',
+                        data: error,
+                    })
+                }
+
+                const productExistente = await modelProducts.findById(sol.params.id);
+                if(!productExistente){
+                    return res.status(404).json({
+                        result: 'mistake',
+                        message: 'Produt not found',
+                        data: null,
+                    })
+                }
+
+                if(sol.file){
+                    const rutaImagenAntigua = path-join('imgenes', 
+                        productExistente.imagen
+                    );
+                    if (fs.existsSync(rutaImagenAntigua)) {
+                        fs.unlinkSync(rutaImagenAntigua);
+                    }
+                }
+
+                const nuevosDatos = {
+                    tipo:sol.body.tipo,
+                    marca:sol.body.marca,
+                    precio:sol.body.precio,
+                    color:sol.body.color,
+                    imagen:sol.file ? sol.filename : productExistente.imagen,
+                };
+
+                const productoActualizado = await modelProducts.findByIdAndUpdate(
+                    sol.params.id,
+                    nuevosDatos,
+                    {new:true}
+                );
+
+                res.json({
+                    result: 'fine',
+                    message: 'ProductUpdate',
+                    data: productoActualizado,
+                })
+
+            })
+
+        } catch (error) {
+            res.json({
+                result: ' mistake',
+                message: 'An error occurred updating all products',
+                data: error,
             });
         }
+    },
+    // updateProduct : async(sol , res)=>{
+    //     try {
+    //         const productUpdate = await modelProducts.findByIdAndUpdate(sol.params.id,
+    //             sol.body
+    //         );
+    //         if(productUpdate._id){
+    //             res.json({
+    //                 result:'fine',
+    //                 message:'product update',
+    //                 data: productUpdate._id,
+    //             });
+    //         }
 
-    }catch(error){
-        res.json({
-            result: 'mistake',
-            message: 'An error occurred reading the product',
-            data: error,
-        });
-    }
-},
+    //     }catch(error){
+    //         res.json({
+    //             result: ' mistake',
+    //             message: 'An error occurred updating all products',
+    //             data: error,
+    //         });
+    //     }
+    // },
 
-readProducts : async(sol , res)=>{
-    try{
-        const allProductsFound = await modelProducts.find();
-        res.json({
-            result: 'fine',
-            message: ' Products found',
-            data: allProductsFound
-        });
-    }catch(error){
-        res.json({
-            result: ' mistake',
-            message: 'An error occurred reading all products',
-            data: error,
-        });
-    }   
-},
-updateProduct : async(sol , res)=>{
-    try {
-        const productUpdate = await modelProducts.findByIdAndUpdate(sol.params.id,
-            sol.body
-        );
-        if(productUpdate._id){
+    deleteProduct : async (sol, res)=>{
+        try {
+            const productDelete = await modelProducts.findByIdAndDelete(sol.params.id);
+
+            if(productDelete){
+                const rutaImagen = path.join('imagenes', productDelete.imagen);
+                if(fs.existsSync(rutaImagen)){
+                    fs.unlinkSync(rutaImagen);
+                }
+                res.json({
+                    result: 'fine',
+                    message: 'Product delete',
+                    data: productDelete._id,
+                })
+            }else{
+                res.status(404).json({
+                    result: 'mistake',
+                    message: 'Product not found',
+                    data: error,
+                });
+            }
+
+        } catch (error) {
             res.json({
-                result:'fine',
-                message:'product update',
-                data: productUpdate._id,
-            });
+                result: 'Mistake',
+                message: 'An error ocurred deleting all products',
+                data: error,
+            })
         }
-
-    }catch(error){
-        res.json({
-            result: ' mistake',
-            message: 'An error occurred updating all products',
-            data: error,
-        });
     }
-},
 
-deleteProduct : async (sol , res)=>{
-    try{
-        const productDelete = await modelProducts.findByIdAndDelete(sol.params.id);
-        if(productDelete){
-            res.json({
-                result:'fine',
-                message:'product delete',
-                data: null,
-            });
-        }
-    }catch(error){
-        res.json({
-            result: ' mistake',
-            message: 'An error occurred deleting all products',
-            data: error,
-        });
-    }
+    // deleteProduct : async (sol , res)=>{
+    //     try{
+    //         const productDelete = await modelProducts.findByIdAndDelete(sol.params.id);
+    //         if(productDelete){
+    //             res.json({
+    //                 result:'fine',
+    //                 message:'product delete',
+    //                 data: null,
+    //             });
+    //         }
+    //     }catch(error){
+    //         res.json({
+    //             result: ' mistake',
+    //             message: 'An error occurred deleting all products',
+    //             data: error,
+    //         });
+    //     }
+    // },
 }
-}
+
 export default controllerProducts;
