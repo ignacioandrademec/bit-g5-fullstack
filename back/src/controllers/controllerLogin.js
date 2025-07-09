@@ -10,12 +10,12 @@ const controllerLogin = {
                 email: username,
             });
 
-            const constrasenaValidada = await bcrypt.compare(
+            const constraseniaValidada = await bcrypt.compare(
                 password,
                 userFound.password
             );
 
-            if(constrasenaValidada){
+            if(constraseniaValidada){
                 const token = await generarToken({
                     id: userFound._id,
                     name: userFound.name
@@ -43,6 +43,7 @@ const controllerLogin = {
         }
     },
 
+
     validarToken:async( sol , res)=>{
         try{
             const token = sol.params.token;
@@ -51,13 +52,13 @@ const controllerLogin = {
             if(decodificado && decodificado.id){
                 res.json({
                     result: 'fine',
-                    message: 'Token is valid',
+                    message: 'token valid',
                     data: decodificado,
                 });
             }else{
                 res.json({
-                    result: 'Mistake',
-                    message: 'Token invalid',
+                    result: 'mistake',
+                    message: 'token invalid',
                     data: null,
                 });
             }
@@ -73,3 +74,4 @@ const controllerLogin = {
 };
 
 export default controllerLogin;
+

@@ -137,7 +137,7 @@ export const forgotPassword = async (sol , res)=>{
             service: 'gmail',
             auth:{
                 user: 'bitgrupo255@gmail.com',
-                pass: 'Grupobit2000*'
+                pass: 'plptczqbpoqkngkc'
             },
         });
 

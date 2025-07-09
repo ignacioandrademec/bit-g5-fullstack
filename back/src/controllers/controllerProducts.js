@@ -124,66 +124,66 @@ const controllerProducts = {
         }   
     },
     
-    updateProduct: async(sol, res)=>{
-        try {
-            uploadSingleImage(sol,res,async(error)=>{
-                if (error) {
-                    res.json({
-                        result: 'Mistake',
-                        message: 'Error uploading image during update',
-                        data: error,
-                    })
-                }
+    // updateProduct: async(sol, res)=>{
+    //     try {
+    //         uploadSingleImage(sol,res,async(error)=>{
+    //             if (error) {
+    //                 res.json({
+    //                     result: 'Mistake',
+    //                     message: 'Error uploading image during update',
+    //                     data: error,
+    //                 })
+    //             }
 
-                const productExistente = await modelProducts.findById(sol.params.id);
-                if(!productExistente){
-                    return res.status(404).json({
-                        result: 'mistake',
-                        message: 'Produt not found',
-                        data: null,
-                    })
-                }
+    //             const productExistente = await modelProducts.findById(sol.params.id);
+    //             if(!productExistente){
+    //                 return res.status(404).json({
+    //                     result: 'mistake',
+    //                     message: 'Produt not found',
+    //                     data: null,
+    //                 });
+    //             }
 
-                if(sol.file){
-                    const rutaImagenAntigua = path-join('imgenes', 
-                        productExistente.imagen
-                    );
-                    if (fs.existsSync(rutaImagenAntigua)) {
-                        fs.unlinkSync(rutaImagenAntigua);
-                    }
-                }
+    //             if(sol.file){
+    //                 const rutaImagenAntigua = path-join('imgenes', 
+    //                     productExistente.imagen
+    //                 );
+    //                 if (fs.existsSync(rutaImagenAntigua)) {
+    //                     fs.unlinkSync(rutaImagenAntigua);
+    //                 }
+    //             }
 
-                const nuevosDatos = {
-                    tipo:sol.body.tipo,
-                    marca:sol.body.marca,
-                    precio:sol.body.precio,
-                    color:sol.body.color,
-                    imagen:sol.file ? sol.filename : productExistente.imagen,
-                };
+    //             const nuevosDatos = {
+    //                 tipo:sol.body.tipo,
+    //                 marca:sol.body.marca,
+    //                 precio:sol.body.precio,
+    //                 color:sol.body.color,
+    //                 imagen:sol.file ? sol.filename : productExistente.imagen,
+    //             };
 
-                const productoActualizado = await modelProducts.findByIdAndUpdate(
-                    sol.params.id,
-                    nuevosDatos,
-                    {new:true}
-                );
+    //             const productoActualizado = await modelProducts.findByIdAndUpdate(
+    //                 sol.params.id,
+    //                 nuevosDatos,
+    //                 {new:true}
+    //             );
 
                 
-                res.json({
-                    result: 'fine',
-                    message: 'ProductUpdate',
-                    data: productoActualizado,
-                })
+    //             res.json({
+    //                 result: 'fine',
+    //                 message: 'ProductUpdate',
+    //                 data: productoActualizado,
+    //             })
 
-            })
+    //         })
 
-        } catch (error) {
-            res.json({
-                result: ' mistake',
-                message: 'An error occurred updating all products',
-                data: error,
-            });
-        }
-    },
+    //     } catch (error) {
+    //         res.json({
+    //             result: ' mistake',
+    //             message: 'An error occurred updating all products',
+    //             data: error,
+    //         });
+    //     }
+    // },
     // updateProduct : async(sol , res)=>{
     //     try {
     //         const productUpdate = await modelProducts.findByIdAndUpdate(sol.params.id,
@@ -205,6 +205,63 @@ const controllerProducts = {
     //         });
     //     }
     // },
+        updateProduct : async(sol , res)=>{
+        try{
+            uploadSingleImage(sol,res,async(error)=>{
+                if(error){
+                    res.json({
+                        result: ' mistake',
+                        message: 'Error uploading image during update',
+                        data: error,
+                    });
+                }
+
+                const productExistente = await modelProducts.findById(sol.params.id);
+                if(!productExistente){
+                    return res.status(404).json({
+                        result: 'mistake',
+                        message: 'product not found',
+                        data: null,
+                    });
+                }
+
+                if(sol.file){
+                    const rutaImagenAntigua = path.join('imagenes',
+                        productExistente.imagen
+                    );
+                    if (fs.existsSync(rutaImagenAntigua)){
+                        fs.unlinkSync(rutaImagenAntigua);
+                    }
+                }
+
+                const nuevosDatos = {
+                    tipo:sol.body.tipo,
+                    marca:sol.body.marca,
+                    precio:sol.body.precio,
+                    color:sol.body.color,
+                    imagen:sol.file ? sol.file.filename : productExistente.imagen,
+                };
+
+                const productoActualizado = await modelProducts.findByIdAndUpdate(
+                    sol.params.id,
+                    nuevosDatos,
+                    {new: true}
+                );
+                res.json({
+                    result:'fine',
+                    message:'product update',
+                    data: productoActualizado,
+                });
+            })
+
+        }catch(error){
+            res.json({
+                result: ' mistake',
+                message: 'An error occurred updating all products',
+                data: error,
+            }); 
+        }
+    },
 
 
     deleteProduct : async (sol, res)=>{
