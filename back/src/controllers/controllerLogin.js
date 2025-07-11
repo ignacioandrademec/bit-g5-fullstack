@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import { generarToken, verificarToken } from "../ayudas/funciones.js";
 import modelUsers from "../models/modelUsers.js";
 
-const controllerLogin = {
+const controladorInicioSesion = {
     iniciarSesion: async (sol, res)=>{
         try{
             const {username, password}= sol.body;
@@ -73,5 +73,5 @@ const controllerLogin = {
     }
 };
 
-export default controllerLogin;
+export default controladorInicioSesion;
 

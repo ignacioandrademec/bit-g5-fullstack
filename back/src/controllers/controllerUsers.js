@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 
 const controllerUsers = {
-    createUser: async(sol , res)=>{
+    crearUsuario: async(sol , res)=>{
         try{
             const {name, email, password} = sol.body;
             console.log(sol.body);
@@ -32,7 +32,7 @@ const controllerUsers = {
             });
         }
     },
-    readUser: async(sol , res)=>{
+    leerUsuario: async(sol , res)=>{
         try{
 
             const userFound = await modelUsers.findById(
@@ -54,7 +54,7 @@ const controllerUsers = {
             });
         }
     },
-    readUsers: async(sol , res)=>{
+    leerTodosUsuarios: async(sol , res)=>{
         try{
             const allUserFound = await modelUsers.find();
             res.json({
@@ -71,7 +71,7 @@ const controllerUsers = {
             });
         }
     },
-    updateUser: async (sol , res)=>{
+    actualizarUsuario: async (sol , res)=>{
         try{
             const userUpdate = await modelUsers.findByIdAndUpdate(
                 sol.params.id,
@@ -92,7 +92,7 @@ const controllerUsers = {
             });
         }
     },
-    deleteUser: async (sol , res)=>{
+    eliminarUsuario: async (sol , res)=>{
         try{
             const userDelete = await modelUsers.findByIdAndDelete(
                 sol.params.id
@@ -120,7 +120,7 @@ function generarContrasenaAleatoria(){
     return crypto.randomBytes(6).toString('hex');
 }
 
-export const forgotPassword = async (sol , res)=>{
+export const contrasenaOlvidada = async (sol , res)=>{
     try{
         const { email }= sol.body
         const user = await modelUsers.findOne({email});

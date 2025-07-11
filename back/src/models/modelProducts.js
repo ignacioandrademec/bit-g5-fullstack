@@ -1,10 +1,11 @@
 import {Schema, model} from 'mongoose';
 
 const esquemaProducto = new Schema({
-    tipo: {type: String, required: true},
-    marca: {type: String, required: true},
-    precio: {type: Number, required: true},
-    color: {type: String, required: true},
+    tipoProducto: {type: String, required: true},
+    serialProducto: {type: String, required: true},
+    marcaProducto: {type: String, required: true},
+    precioProducto: {type: Number, required: true},
+    colorProducto: {type: String, required: true},
     imagen: {type: String, required: true},
 },
 {
@@ -14,3 +15,4 @@ const esquemaProducto = new Schema({
 );
 
 export default model ('productos', esquemaProducto);
+

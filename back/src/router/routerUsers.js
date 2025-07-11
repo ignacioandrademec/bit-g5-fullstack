@@ -1,14 +1,14 @@
 import {Router} from 'express';
-import controllerUsers, { forgotPassword } from '../controllers/controllerUsers.js';
+import controllerUsers, { contrasenaOlvidada } from '../controllers/controllerUsers.js';
 
 const routerUsers = Router();
 
-routerUsers.post('/',controllerUsers.createUser);
-routerUsers.get('/:id', controllerUsers.readUser);
-routerUsers.get('/',controllerUsers.readUsers);
-routerUsers.put('/:id', controllerUsers.updateUser);
-routerUsers.delete('/:id', controllerUsers.deleteUser);
-routerUsers.post('/forgot-password', forgotPassword);
+routerUsers.post('/',controllerUsers.crearUsuario);
+routerUsers.get('/:id', controllerUsers.leerUsuario);
+routerUsers.get('/',controllerUsers.leerTodosUsuarios);
+routerUsers.put('/:id', controllerUsers.actualizarUsuario);
+routerUsers.delete('/:id', controllerUsers.eliminarUsuario);
+routerUsers.post('/forgot-password', contrasenaOlvidada);
 
 export default routerUsers;
 
