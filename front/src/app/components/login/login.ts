@@ -3,6 +3,8 @@ import { Credential } from '../../interfaces/credential';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators, FormsModule} from '@angular/forms';
 import { LoginService } from '../../services/login-service';
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',

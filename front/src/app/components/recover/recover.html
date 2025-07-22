@@ -1,0 +1,12 @@
+<p>recover works!</p>
+<div class="container mt-5">
+    <h3>Recuperar Contraseña</h3>
+    <form [formGroup]="recoverForm"(ngSubmit)="handleRecover()">
+        <label for="email">Email</label>
+        <input 
+        type="email"
+        id="email"
+        formControlName="email">
+
+    </form>
+</div>
