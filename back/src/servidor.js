@@ -7,7 +7,9 @@ import routerProducts from "./router/routerProducts.js";
 import routerLogin from "./router/routerLogin.js";
 
 const servidor = express();
-servidor.use(cors());
+servidor.use(cors({
+    origin: 'http://localhost:4200'
+}));
 servidor.use(morgan("dev"));
 servidor.use(express.json());
 servidor.use('/users', routerUsers);

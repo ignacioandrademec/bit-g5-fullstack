@@ -18,7 +18,8 @@ const controladorInicioSesion = {
             if(constraseniaValidada){
                 const token = await generarToken({
                     id: userFound._id,
-                    name: userFound.name
+                    name: userFound.name,
+                    rol: userFound.rol
                 });
 
                 res.json({

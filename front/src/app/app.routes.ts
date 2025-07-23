@@ -6,6 +6,7 @@ import { Register } from './components/register/register';
 import { PageNotFound } from './components/page-not-found/page-not-found';
 import { Shop } from './components/shop/shop';
 import { authGuard } from './guards/auth-guard';
+import { AdminPanel } from './components/admin-panel/admin-panel';
 
 export const routes: Routes = [
 
@@ -13,6 +14,7 @@ export const routes: Routes = [
     {path: "login", title: 'Inicio-Sesion', component: Login},
     {path: "recover", title: 'Recover', component:Recover},
     {path: "register", title: 'Registrarse', component: Register},
+    {path: "admin-panel", title: 'Administrador', component:AdminPanel},
     {path: 'shop', title: 'Shop', component: Shop, canActivate:[authGuard]},
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: '**', title: '404 || Page not Found', component: PageNotFound}

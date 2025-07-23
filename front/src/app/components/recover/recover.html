@@ -6,7 +6,19 @@
         <input 
         type="email"
         id="email"
-        formControlName="email">
+        formControlName="email"
+        class="form-control"
+        placeholder="Ingresa tu correo">
+        
+        <button type="submit">Enviar</button>
 
     </form>
+
+    <div *ngIf = "mensaje" class="alert alert-info mt-3">
+        {{mensaje}}
+    </div>
+
+
+
+
 </div>

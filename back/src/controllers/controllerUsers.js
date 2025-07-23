@@ -13,6 +13,7 @@ const controllerUsers = {
                 name,
                 email,
                 password: passwordProtected,
+                rol: rol || 'user'
             });
             console.log(newUser);
 
