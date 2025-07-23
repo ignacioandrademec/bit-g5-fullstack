@@ -1,0 +1,73 @@
+<p>crud-productos works!</p>
+<button (click)="prepararCrear()" class="btn btn-succes">Nuevo Producto</button>
+
+<div *ngIf="mostrarFormulario" class="mt-3">
+    <form (ngSubmit)="modo === 'crear' ? crearProducto(): actualizarProducto()" enctype="multipart/form-data">
+        <div>
+            <label>Tipo:</label>
+            <input type="text" [(ngModel)]="productoForm.tipoProducto" name="tipoProducto" required/>
+        </div>
+        <div>
+            <label>Serial:</label>
+            <input type="text" [(ngModel)]="productoForm.serialProducto" name="serialProducto" required/>
+        </div>
+        <div>
+            <label>Marca:</label>
+            <input type="text" [(ngModel)]="productoForm.marcaProducto" name="marcaProducto" required/>
+        </div>
+        <div>
+            <label>Precio:</label>
+            <input type="text" [(ngModel)]="productoForm.precioProducto" name="precioProducto" required/>
+        </div>
+        <div>
+            <label>Color:</label>
+            <input type="text" [(ngModel)]="productoForm.colorProducto" name="colorProducto" required/>
+        </div>
+        <div>
+            <label>Imagen:</label>
+            <input type="file" (change)="OnFileSelected($event)"/>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">
+                {{modo === 'crear' ? 'Crear Producto' : 'actualizarProducto'}}
+            </button>
+            <button type="button" class="btn btn-secundary" (click)="cancelarFormulario()">
+                Cancelar
+            </button>
+        </div>
+        
+    </form>
+
+
+</div>
+
+<p *ngIf="productos.length === 0">No hay Productos Disponibles</p>
+<table>
+    <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Tipo</th>
+            <th>Serial</th>
+            <th>Marca</th>
+            <th>Color</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let prod of productos">
+            <td>
+                <img [src]="imagenBaseUrl + prod.imagen" width="80" [alt]="">
+            </td>
+            <td>{{prod.tipoProducto}}</td>
+            <td>{{prod.serialProducto}}</td>
+            <td>{{prod.marcaProducto}}</td>
+            <td>{{prod.colorProducto}}</td>
+            <td>{{prod.precioProducto}}</td>
+            <td>
+                <button class="btn btn-sm btn-warning" (click)="seleccionarParaEditar(prod)">Modificar</button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(prod._id!)">Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
