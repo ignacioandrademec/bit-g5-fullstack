@@ -1,0 +1,17 @@
+.textoLogin {
+    margin-top: 10px;
+    font-size: 40px;
+}
+
+
+.contenedorLogin {
+    background-color: gray;
+    width: 50%;
+    height: 600px;
+    margin-top: 50px;
+    margin-bottom: 10%;
+    padding-top: 30px;
+}
+.Olvidaste{
+    margin-top: 10px;
+}

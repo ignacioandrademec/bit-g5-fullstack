@@ -1,18 +1,27 @@
-<form [formGroup]="credentialForm" (ngSubmit)="handleSubmit()">
-    <input type="text" 
-            placeholder="username"
-            formControlName="username"
-            > 
-    <input type="password"
-            placeholder="password" 
-            formControlName="password"
-            >
-<button type="submit"  value="Login">Submit</button>
 
 
-<div>
-        <a [routerLink]="['/recover']" style="cursor: pointer; color: #007bff; text-decoration: underline;">
-    ¿Olvidaste tu contraseña?
-  </a>
+<div class="container text-center textoLogin">
+        <label class="textoLogin" for="text">INICIA SESIÓN PARA INGRESAR A LA TIENDA</label>
 </div>
-</form>
+
+<div class="container text-center contenedorLogin">
+        <form [formGroup]="credentialForm" (ngSubmit)="handleSubmit()">
+        <input type="text" 
+                placeholder="Ingrese su Nombre"
+                formControlName="username"
+                > 
+        <input type="password"
+                placeholder="Ingrese su Contraseña" 
+                formControlName="password"
+                >
+        <button type="submit"  value="Login">Ingresar</button>
+
+
+        <div class="Olvidaste">
+                <a [routerLink]="['/recover']" style="cursor: pointer; color: #007bff; text-decoration: underline;">
+        ¿Olvidaste tu contraseña?
+        </a>
+        </div>
+        </form>
+</div>
+

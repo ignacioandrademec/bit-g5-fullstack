@@ -40,7 +40,7 @@ export class CrudProductos implements OnInit{
   selectedFile! : File;
 
   OnFileSelected(event:any):void{
-    const file: File = event.target.file(0);
+    const file: File = event.target.files[0];
     if(file){
       this.selectedFile = file;
     }
@@ -143,7 +143,9 @@ export class CrudProductos implements OnInit{
     if(confirm("¿Esta seguro de eliminar el Producto?")){
       this.productosService.delete(id).subscribe({
         next:(resp)=>{
+          alert("Producto Eliminado de manera exitosa")
           this.productos = resp;
+          this.obtenerProductos();
           this.cdr.detectChanges();
         },
         error: (err)=> console.log("Error al eliminar", err)
