@@ -1,12 +1,12 @@
-import bcrypt from 'bcryptjs';// para encriptar la contrasena
-import modelUsers from "../models/modelUsers.js"// para poder controlar el schema de usuarios
+import bcrypt from 'bcryptjs';
+import modelUsers from "../models/modelUsers.js"
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 
 const controllerUsers = {
     crearUsuario: async(sol , res)=>{
         try{
-            const {name, email, password} = sol.body;
+            const {name, email, password, rol} = sol.body;
             console.log(sol.body);
             const passwordProtected = await bcrypt.hash(password, 10);
             const newUser = new modelUsers({

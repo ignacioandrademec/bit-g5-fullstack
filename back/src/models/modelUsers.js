@@ -14,7 +14,7 @@ const schemaUser = new Schema({
         trim: true,
         match:[/^(?=.*[!@#$%^&*()_\-+={}[\]|\\:;"'<>,.?/~'])\S+$/, "Invalid Password"]
     },
-    role:{
+    rol:{
         type: String,
         enum:["user","admin"],
         default:"user",
