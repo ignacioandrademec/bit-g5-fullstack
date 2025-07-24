@@ -27,7 +27,7 @@ export class Register {
     this.registerS.createUser(this.name, this.email, this.password).subscribe({
       next: (res:ApiResponse)=>{
         if(res.result === 'fine'){
-          alert("Usurio Registrado Correctamente");
+          alert("Usuario Registrado Correctamente");
           this.router.navigate(['/login'])
         }else{
           alert(res.message || "No se pudo registrar el usuario");

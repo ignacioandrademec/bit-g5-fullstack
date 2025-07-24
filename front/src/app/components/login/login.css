@@ -1,17 +1,65 @@
-.textoLogin {
-    margin-top: 10px;
-    font-size: 40px;
-}
-
 
 .contenedorLogin {
-    background-color: gray;
-    width: 50%;
-    height: 600px;
-    margin-top: 50px;
-    margin-bottom: 10%;
-    padding-top: 30px;
+  max-width: 400px;
+  margin: 2rem auto;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
-.Olvidaste{
-    margin-top: 10px;
+
+.textoLogin {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1c1c1c;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.contenedorLogin input[type="text"],
+.contenedorLogin input[type="password"] {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border 0.3s ease;
+}
+
+.contenedorLogin input:focus {
+  border-color: #f7931e;
+  outline: none;
+}
+
+.contenedorLogin button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #f7931e;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contenedorLogin button[type="submit"]:hover {
+  background-color: #e07e11;
+}
+
+.Olvidaste {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.Olvidaste a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.Olvidaste a:hover {
+  text-decoration: underline;
 }
