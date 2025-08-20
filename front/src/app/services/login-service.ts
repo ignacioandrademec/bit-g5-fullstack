@@ -10,7 +10,7 @@ export class LoginService {
   constructor(){}
     httpClient = inject(HttpClient);
     login (credential : Credential){
-      return this.httpClient.post('http://localhost:3000/inicio-sesion', credential);
+      return this.httpClient.post('http://107.21.171.118:3000/inicio-sesion', credential);
     }
 
     decodeToken(token: string):any{

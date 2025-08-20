@@ -20,7 +20,7 @@ export class Recover {
   handleRecover(){
     if(this.recoverForm.valid){
       const email = this.recoverForm.value.email;
-      this.httpClient.post<any>('http://localhost:3000/users/forgot-password', {email}).subscribe({
+      this.httpClient.post<any>('http://107.21.171.118:3000/users/forgot-password', {email}).subscribe({
         next:(res)=>{
           this.mensaje = res.message;
         },

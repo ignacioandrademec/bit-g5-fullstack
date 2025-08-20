@@ -7,7 +7,7 @@ import { ApiResponse } from '../interfaces/api-response';
   providedIn: 'root'
 })
 export class RegisterServices {
-  private API_URL = 'http://localhost:3000/users';
+  private API_URL = 'http://107.21.171.118:3000/users';
 
   constructor(private httpClient: HttpClient){}
 

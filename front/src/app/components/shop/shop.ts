@@ -28,7 +28,7 @@ export class Shop implements OnInit{
   }
 
   getImageUrl(nombreArchivo:string):string{
-    return `http://localhost:3000/imagenes/${nombreArchivo}`;
+    return `http://107.21.171.118:3000/imagenes/${nombreArchivo}`;
   }
 
     logout(){

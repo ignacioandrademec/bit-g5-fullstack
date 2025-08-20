@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 export class CrudProductos implements OnInit{
   
   productos: Productos[]=[];
-  imagenBaseUrl = 'http://localhost:3000/imagenes/';
+  imagenBaseUrl = 'http://107.21.171.118:3000/imagenes/';
   mostrarFormulario = false;
   productoForm: Productos= this.resetProducto();
 

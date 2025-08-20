@@ -9,7 +9,7 @@ import { map } from 'rxjs';
 })
 export class ProductosS {
   
-  private API_URL = 'http://localhost:3000/products/';
+  private API_URL = 'http://107.21.171.118:3000/products/';
   
   constructor(private http: HttpClient){}
 
@@ -18,15 +18,15 @@ export class ProductosS {
   }
 
   crear(formData: FormData):Observable<any>{
-    return this.http.post('http://localhost:3000/products', formData)
+    return this.http.post('http://107.21.171.118:3000/products', formData)
   }
 
   actualizar(id:string, data:FormData):Observable<any>{
-    return this.http.put(`http://localhost:3000/products/${id}`, data)
+    return this.http.put(`http://107.21.171.118:3000/products/${id}`, data)
   }
 
   delete(id:string):Observable<any>{
-    return this.http.delete(`http://localhost:3000/products/${id}`);
+    return this.http.delete(`http://107.21.171.118:3000/products/${id}`);
   }
 
 }
